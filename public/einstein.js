@@ -56,11 +56,11 @@ async function loadBotWallet() {
     const response = await fetch('/api/bot-wallet');
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
-    currentWallet = data.wallet;
+    currentWallet = data.publicKey || data.wallet; // Support both formats
     if (walletDisplay) {
-      walletDisplay.textContent = data.wallet;
+      walletDisplay.textContent = currentWallet;
     }
-    return data.wallet;
+    return currentWallet;
   } catch (error) {
     console.error('Error loading bot wallet:', error);
     if (walletDisplay) walletDisplay.textContent = 'Wallet unavailable';
@@ -213,18 +213,27 @@ async function loadWalletPnL() {
   }
 
   if (!currentWallet) {
-    walletStatus.textContent = 'Bot wallet not available.';
+    if (walletStatus) walletStatus.textContent = 'Bot wallet not available.';
+    console.error('No wallet available for PnL fetch');
     return;
   }
 
-  walletStatus.textContent = 'Fetching Einstein diagnostics...';
+  if (walletStatus) walletStatus.textContent = 'Fetching Einstein diagnostics...';
 
   try {
-    const response = await fetch(`/api/pnl/${currentWallet}?showHistoricPnL=true&holdingCheck=true&hideDetails=true`);
+    const url = `/api/pnl/${currentWallet}?showHistoricPnL=true&holdingCheck=true&hideDetails=true`;
+    console.log('Fetching PnL from:', url);
+    
+    const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
+      const errorText = await response.text();
+      console.error('PnL API error:', response.status, errorText);
+      throw new Error(`HTTP ${response.status}: ${errorText}`);
     }
+    
     const data = await response.json();
+    console.log('PnL data received:', data);
+    
     const summary = data.summary || {};
     const historic = data.historic?.summary || {};
     lastHistoric = historic;
@@ -246,10 +255,12 @@ async function loadWalletPnL() {
     updateWinLossPieChart(wins, losses);
 
     updateCharts(summary, historic);
-    walletStatus.textContent = 'Einstein has updated the field.';
+    if (walletStatus) walletStatus.textContent = 'Einstein has updated the field.';
   } catch (error) {
     console.error('Error loading PnL:', error);
-    walletStatus.textContent = 'Failed to load data. Check the API key or wallet address.';
+    if (walletStatus) {
+      walletStatus.textContent = `Failed to load data: ${error.message || 'Unknown error'}`;
+    }
   }
 }
 
