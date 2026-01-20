@@ -125,17 +125,6 @@
         </div>
       </div>
 
-      <div class="chart-grid">
-        <div class="chart-card">
-          <h3>Einstein PnL Wave</h3>
-          <canvas id="summaryChart" width="600" height="220"></canvas>
-        </div>
-        <div class="chart-card">
-          <h3>Historic Field Strength</h3>
-          <canvas id="historicChart" width="600" height="220"></canvas>
-        </div>
-      </div>
-
       <div class="historic-grid" id="historicGrid">
         <div class="historic-card pie-card" data-period="30d">
           <h3>Einstein 30D Field</h3>
@@ -152,6 +141,22 @@
                 <span class="legend-label">Losses</span>
                 <span class="legend-value" id="lossesCount">0</span>
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="historic-card chart-card-pnl">
+          <h3>Realized vs Unrealized PnL</h3>
+          <canvas id="pnlChart" width="300" height="200"></canvas>
+          <div class="pnl-legend">
+            <div class="legend-item">
+              <span class="legend-color" style="background: #4ade80;"></span>
+              <span class="legend-label">Realized</span>
+              <span class="legend-value" id="realizedValue">$0.00</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color" style="background: #60a5fa;"></span>
+              <span class="legend-label">Unrealized</span>
+              <span class="legend-value" id="unrealizedValue">$0.00</span>
             </div>
           </div>
         </div>

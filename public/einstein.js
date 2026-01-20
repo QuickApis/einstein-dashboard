@@ -3,10 +3,6 @@ const syncButton = document.getElementById('syncWallet');
 const walletStatus = document.getElementById('walletStatus');
 const summaryGrid = document.getElementById('summaryGrid');
 const historicGrid = document.getElementById('historicGrid');
-const summaryChart = document.getElementById('summaryChart');
-const historicChart = document.getElementById('historicChart');
-const pnlLineChart = document.getElementById('pnlLineChart');
-const pnlBarChart = document.getElementById('pnlBarChart');
 
 let currentWallet = null;
 let lastHistoric = {};
@@ -129,17 +125,6 @@ function drawBarChart(canvas, labels, values) {
   });
 }
 
-function updateCharts(summary, historic) {
-  const labels = ['1D', '7D', '30D'];
-  const values = ['1d', '7d', '30d'].map(period => Number(historic?.[period]?.totalPnL ?? 0));
-  drawLineChart(summaryChart || pnlLineChart, labels, values);
-
-  const wins = ['1d', '7d', '30d'].map(period => Number(historic?.[period]?.wins ?? 0));
-  const losses = ['1d', '7d', '30d'].map(period => Number(historic?.[period]?.losses ?? 0));
-  const combined = wins.map((win, idx) => win + losses[idx]);
-  drawBarChart(historicChart || pnlBarChart, labels, combined);
-}
-
 function updateWinLossPieChart(wins, losses) {
   const canvas = document.getElementById('winLossPieChart');
   if (!canvas) return;
@@ -207,6 +192,78 @@ function updateWinLossPieChart(wins, losses) {
   if (lossesCountEl) lossesCountEl.textContent = losses;
 }
 
+function drawRealizedUnrealizedChart(realized, unrealized) {
+  const canvas = document.getElementById('pnlChart');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const dpi = window.devicePixelRatio || 1;
+  const width = canvas.clientWidth * dpi;
+  const height = canvas.clientHeight * dpi;
+  canvas.width = width;
+  canvas.height = height;
+  ctx.scale(dpi, dpi);
+
+  const centerX = canvas.clientWidth / 2;
+  const centerY = canvas.clientHeight / 2;
+  const radius = Math.min(centerX, centerY) - 30;
+
+  ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+
+  const total = Math.abs(realized) + Math.abs(unrealized);
+  if (total === 0) {
+    // Draw empty circle
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(154, 230, 255, 0.1)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(154, 230, 255, 0.3)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    return;
+  }
+
+  // Use absolute values for visualization, but keep track of signs
+  const realizedAbs = Math.abs(realized);
+  const unrealizedAbs = Math.abs(unrealized);
+  const realizedAngle = (realizedAbs / total) * Math.PI * 2;
+  const unrealizedAngle = (unrealizedAbs / total) * Math.PI * 2;
+
+  // Draw realized segment (green if positive, red if negative)
+  if (realizedAbs > 0) {
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY);
+    ctx.arc(centerX, centerY, radius, -Math.PI / 2, -Math.PI / 2 + realizedAngle);
+    ctx.closePath();
+    ctx.fillStyle = realized >= 0 ? '#4ade80' : '#f87171';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(12, 16, 24, 0.8)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+
+  // Draw unrealized segment (blue)
+  if (unrealizedAbs > 0) {
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY);
+    ctx.arc(centerX, centerY, radius, -Math.PI / 2 + realizedAngle, -Math.PI / 2 + realizedAngle + unrealizedAngle);
+    ctx.closePath();
+    ctx.fillStyle = '#60a5fa';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(12, 16, 24, 0.8)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+
+  // Update legend
+  const realizedEl = document.getElementById('realizedValue');
+  const unrealizedEl = document.getElementById('unrealizedValue');
+  if (realizedEl) realizedEl.textContent = formatUsd(realized);
+  if (unrealizedEl) unrealizedEl.textContent = formatUsd(unrealized);
+}
+
 async function loadWalletPnL() {
   if (!currentWallet) {
     await loadBotWallet();
@@ -254,7 +311,8 @@ async function loadWalletPnL() {
     const losses = period30d.losses || 0;
     updateWinLossPieChart(wins, losses);
 
-    updateCharts(summary, historic);
+    // Update realized/unrealized chart
+    drawRealizedUnrealizedChart(summary.realized || 0, summary.unrealized || 0);
     if (walletStatus) walletStatus.textContent = 'Einstein has updated the field.';
   } catch (error) {
     console.error('Error loading PnL:', error);

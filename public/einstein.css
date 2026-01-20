@@ -462,6 +462,33 @@ body {
   font-size: 0.95rem;
 }
 
+.chart-card-pnl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-card-pnl h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#pnlChart {
+  max-width: 200px;
+  max-height: 200px;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+}
+
+.pnl-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
 .legend-color {
   width: 16px;
   height: 16px;
