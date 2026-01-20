@@ -13,7 +13,6 @@ const SOLANATRACKER_PNL_URL = 'https://data.solanatracker.io/pnl';
 const BOT_PUBLIC_KEY = process.env.BOT_PUBLIC_KEY || '3RvkCPH7FSz3JxXbvPkNbHqgZEm6J3oWAEmaduqduzyT';
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
 
 // API endpoint para obtener la wallet del bot
 app.get('/api/bot-wallet', (_req, res) => {
@@ -57,10 +56,15 @@ app.get('/api/pnl/:wallet', async (req, res) => {
   }
 });
 
-// Servir la página principal
+// Servir la página principal - redirige a Einstein
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'einstein.html'));
 });
+
+// Servir archivos estáticos (CSS, JS, imágenes) pero NO index.html
+app.use(express.static(path.join(__dirname, 'public'), {
+  index: false // Evita que Express sirva index.html por defecto
+}));
 
 // Iniciar servidor
 app.listen(PORT, () => {
