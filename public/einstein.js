@@ -26,8 +26,11 @@ function animateValue(node, valueText) {
 
 
 function setSummaryValue(key, value, formatter = formatUsd) {
-  if (!summaryGrid) return;
-  const node = summaryGrid.querySelector(`[data-key="${key}"]`);
+  // Search in summaryGrid first, then in the entire document (for elements moved to metric-grid-center)
+  let node = summaryGrid ? summaryGrid.querySelector(`[data-key="${key}"]`) : null;
+  if (!node) {
+    node = document.querySelector(`[data-key="${key}"]`);
+  }
   if (!node) return;
   const formatted = formatter(value);
   animateValue(node, formatted);
