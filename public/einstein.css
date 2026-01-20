@@ -66,6 +66,36 @@ body {
   font-weight: 700;
 }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.ca-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  padding: 6px 12px;
+  background: rgba(154, 230, 255, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(154, 230, 255, 0.2);
+}
+
+.ca-label {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.ca-address {
+  color: var(--accent);
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
 .nav-links {
   display: flex;
   gap: 18px;
