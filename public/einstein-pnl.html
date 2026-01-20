@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Einstein PnL Lab</title>
+  <link rel="stylesheet" href="einstein.css">
+</head>
+<body>
+  <div class="page">
+    <nav class="top-nav">
+      <div class="brand">
+        <span class="brand-mark">E</span>
+        <span>Einstein The Trenchor</span>
+      </div>
+      <div class="nav-links">
+        <a href="einstein.html">Home</a>
+        <a href="#summary">Summary</a>
+        <a href="#history">History</a>
+        <a href="#insights">Insights</a>
+      </div>
+    </nav>
+
+    <header class="hero hero-compact">
+      <div class="hero-inner">
+        <p class="eyebrow">Einstein PnL Lab</p>
+        <h1>Portfolio gravity, visualized in motion</h1>
+        <p class="subhead">
+          A dedicated laboratory for Profit & Loss analytics. All data is pulled automatically
+          from Einstein's trading engine—no manual confirmation required.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="einstein.html">Back to Einstein</a>
+          <button class="btn ghost" id="syncWallet">Sync PnL</button>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <div class="glass-card">
+          <p class="card-label">Bot Wallet</p>
+          <p class="card-big" id="walletDisplay">Loading...</p>
+          <p class="card-note" id="walletStatus">Awaiting data...</p>
+        </div>
+        <div class="glass-card signal-orb">
+          <p class="card-label">Temporal Flow</p>
+          <div class="orb orb-large"></div>
+          <p class="card-note">Every curve is a time experiment.</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" id="summary">
+      <div class="section-header">
+        <h2>Core PnL Summary</h2>
+        <p>Einstein’s main scoreboard for the active portfolio.</p>
+      </div>
+      <div class="metrics-grid" id="summaryGrid">
+        <div class="metric-card">
+          <span class="metric-label">Total PnL</span>
+          <span class="metric-value" data-key="total">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Realized</span>
+          <span class="metric-value" data-key="realized">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Unrealized</span>
+          <span class="metric-value" data-key="unrealized">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Total Invested</span>
+          <span class="metric-value" data-key="totalInvested">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Win %</span>
+          <span class="metric-value" data-key="winPercentage">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Loss %</span>
+          <span class="metric-value" data-key="lossPercentage">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Neutral %</span>
+          <span class="metric-value" data-key="neutralPercentage">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Wins / Losses</span>
+          <span class="metric-value" data-key="winsLosses">--</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="history">
+      <div class="section-header">
+        <h2>Historic PnL Field</h2>
+        <p>1D, 7D and 30D forces mapped in one glance.</p>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-card">
+          <h3>Total PnL Wave</h3>
+          <canvas id="pnlLineChart" width="680" height="240"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Wins vs Losses</h3>
+          <canvas id="pnlBarChart" width="680" height="240"></canvas>
+        </div>
+      </div>
+      <div class="historic-grid" id="historicGrid">
+        <div class="historic-card" data-period="1d">
+          <h3>Einstein 1D Field</h3>
+          <p class="historic-value" data-key="totalPnL">--</p>
+          <p class="historic-detail">Win % <span data-key="winPercentage">--</span></p>
+          <p class="historic-detail">New Tokens <span data-key="newTokensCount">--</span></p>
+        </div>
+        <div class="historic-card" data-period="7d">
+          <h3>Einstein 7D Field</h3>
+          <p class="historic-value" data-key="totalPnL">--</p>
+          <p class="historic-detail">Win % <span data-key="winPercentage">--</span></p>
+          <p class="historic-detail">New Tokens <span data-key="newTokensCount">--</span></p>
+        </div>
+        <div class="historic-card" data-period="30d">
+          <h3>Einstein 30D Field</h3>
+          <p class="historic-value" data-key="totalPnL">--</p>
+          <p class="historic-detail">Win % <span data-key="winPercentage">--</span></p>
+          <p class="historic-detail">New Tokens <span data-key="newTokensCount">--</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="insights">
+      <div class="section-header">
+        <h2>Behavioral Insights</h2>
+        <p>Einstein narrates the logic behind every outcome.</p>
+      </div>
+      <div class="insight-grid">
+        <div class="insight-card">
+          <h3>Temporal Efficiency</h3>
+          <p>Einstein thrives on fast experiments—average hold time stays under 90 seconds.</p>
+          <div class="signal-bar"></div>
+        </div>
+        <div class="insight-card">
+          <h3>Market Mass Filter</h3>
+          <p>Tokens under $20k market cap are ignored to avoid unstable microgravity.</p>
+          <div class="signal-bar"></div>
+        </div>
+        <div class="insight-card">
+          <h3>Signal Integrity</h3>
+          <p>Every entry is triggered by a real-time signal sweep. No synthetic trades allowed.</p>
+          <div class="signal-bar"></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="einstein.js"></script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEX Backtesting Dashboard - Pro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>DEX Backtesting Dashboard</h1>
+                <p>Análisis profesional de estrategias de trading con correlaciones avanzadas</p>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <aside class="config-panel">
+                <div class="panel-header">
+                    <h2>Condiciones de Entrada</h2>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button type="button" class="btn-reset" onclick="resetForm()">Resetear</button>
+                        <button type="button" class="btn-reset" onclick="exportConfig()">Exportar Config</button>
+                        <button type="button" class="btn-reset" onclick="importConfig()">Importar Config</button>
+                        <input type="file" id="configFileInput" accept=".json" style="display: none;" onchange="handleConfigFile(event)">
+                    </div>
+                </div>
+                
+                <form id="backtestForm">
+                    <!-- Market Cap -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h3>Market Cap</h3>
+                            <span class="section-subtitle">Capitalización de mercado (USD)</span>
+                        </div>
+                        <div class="slider-container">
+                            <div class="slider-wrapper">
+                                <label>Mínimo: <span id="marketCapMinValue">0</span></label>
+                                <input type="range" id="marketCapMin" min="0" max="5000000" value="0" step="1000" class="slider">
+                            </div>
+                            <div class="slider-wrapper">
+                                <label>Máximo: <span id="marketCapMaxValue">5000000</span></label>
+                                <input type="range" id="marketCapMax" min="0" max="5000000" value="5000000" step="1000" class="slider">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Price Change -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h3>Cambio de Precio (%)</h3>
+                            <span class="section-subtitle">Variación porcentual del precio (API)</span>
+                        </div>
+                        <div class="slider-group">
+                            <div class="slider-container">
+                                <div class="slider-wrapper">
+                                    <label>H1 Min: <span id="priceChangeH1MinValue">-100</span>%</label>
+                                    <input type="range" id="priceChangeH1Min" min="-100" max="1000" value="-100" step="1" class="slider">
+                                </div>
+                                <div class="slider-wrapper">
+                                    <label>H1 Max: <span id="priceChangeH1MaxValue">1000</span>%</label>
+                                    <input type="range" id="priceChangeH1Max" min="-100" max="1000" value="1000" step="1" class="slider">
+                                </div>
+                            </div>
+                            <div class="slider-container">
+                                <div class="slider-wrapper">
+                                    <label>H6 Min: <span id="priceChangeH6MinValue">-100</span>%</label>
+                                    <input type="range" id="priceChangeH6Min" min="-100" max="1000" value="-100" step="1" class="slider">
+                                </div>
+                                <div class="slider-wrapper">
+                                    <label>H6 Max: <span id="priceChangeH6MaxValue">1000</span>%</label>
+                                    <input type="range" id="priceChangeH6Max" min="-100" max="1000" value="1000" step="1" class="slider">
+                                </div>
+                            </div>
+                            <div class="slider-container">
+                                <div class="slider-wrapper">
+                                    <label>H24 Min: <span id="priceChangeH24MinValue">-100</span>%</label>
+                                    <input type="range" id="priceChangeH24Min" min="-100" max="1000" value="-100" step="1" class="slider">
+                                </div>
+                                <div class="slider-wrapper">
+                                    <label>H24 Max: <span id="priceChangeH24MaxValue">1000</span>%</label>
+                                    <input type="range" id="priceChangeH24Max" min="-100" max="1000" value="1000" step="1" class="slider">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Price Change Calculado -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h3>Cambio de Precio Calculado (%)</h3>
+                            <span class="section-subtitle">Variación porcentual basada en consultas anteriores</span>
+                        </div>
+                        <div class="slider-group">
+                            <div class="slider-container">
+                                <div class="slider-wrapper">
+                                    <label>1m Min: <span id="priceChange1mMinValue">-100</span>%</label>
+                                    <input type="range" id="priceChange1mMin" min="-100" max="1000" value="-100" step="1" class="slider">
+                                </div>
+                                <div class="slider-wrapper">
+                                    <label>1m Max: <span id="priceChange1mMaxValue">1000</span>%</label>
+                                    <input type="range" id="priceChange1mMax" min="-100" max="1000" value="1000" step="1" class="slider">
+                                </div>
+                            </div>
+                            <div class="slider-container">
+                                <div class="slider-wrapper">
+                                    <label>3m Min: <span id="priceChange3mMinValue">-100</span>%</label>
+                                    <input type="range" id="priceChange3mMin" min="-100" max="1000" value="-100" step="1" class="slider">
+                                </div>
+                                <div class="slider-wrapper">
+                                    <label>3m Max: <span id="priceChange3mMaxValue">1000</span>%</label>
+                                    <input type="range" id="priceChange3mMax" min="-100" max="1000" value="1000" step="1" class="slider">
+                                </div>
+                            </div>
+                            <div class="slider-container">
+                                <div class="slider-wrapper">
+                                    <label>5m Min: <span id="priceChange5mMinValue">-100</span>%</label>
+                                    <input type="range" id="priceChange5mMin" min="-100" max="1000" value="-100" step="1" class="slider">
+                                </div>
+                                <div class="slider-wrapper">
+                                    <label>5m Max: <span id="priceChange5mMaxValue">1000</span>%</label>
+                                    <input type="range" id="priceChange5mMax" min="-100" max="1000" value="1000" step="1" class="slider">
+                                </div>
+                            </div>
+                            <div class="slider-container">
+                                <div class="slider-wrapper">
+                                    <label>10m Min: <span id="priceChange10mMinValue">-100</span>%</label>
+                                    <input type="range" id="priceChange10mMin" min="-100" max="1000" value="-100" step="1" class="slider">
+                                </div>
+                                <div class="slider-wrapper">
+                                    <label>10m Max: <span id="priceChange10mMaxValue">1000</span>%</label>
+                                    <input type="range" id="priceChange10mMax" min="-100" max="1000" value="1000" step="1" class="slider">
+                                </div>
+                            </div>
+                            <div class="slider-container">
+                                <div class="slider-wrapper">
+                                    <label>30m Min: <span id="priceChange30mMinValue">-100</span>%</label>
+                                    <input type="range" id="priceChange30mMin" min="-100" max="1000" value="-100" step="1" class="slider">
+                                </div>
+                                <div class="slider-wrapper">
+                                    <label>30m Max: <span id="priceChange30mMaxValue">1000</span>%</label>
+                                    <input type="range" id="priceChange30mMax" min="-100" max="1000" value="1000" step="1" class="slider">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Volumen Relativo -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h3>Volumen Relativo</h3>
+                            <span class="section-subtitle">Ratio Market Cap / Volumen</span>
+                        </div>
+                        <div class="slider-group">
+                            <div class="slider-container">
+                                <div class="slider-wrapper">
+                                    <label>M5 Min: <span id="volumeRelativoM5MinValue">0</span></label>
+                                    <input type="range" id="volumeRelativoM5Min" min="0" max="10000" value="0" step="10" class="slider">
+                                </div>
+                                <div class="slider-wrapper">
+                                    <label>M5 Max: <span id="volumeRelativoM5MaxValue">10000</span></label>
+                                    <input type="range" id="volumeRelativoM5Max" min="0" max="10000" value="10000" step="10" class="slider">
+                                </div>
+                            </div>
+                            <div class="slider-container">
+                                <div class="slider-wrapper">
+                                    <label>H1 Min: <span id="volumeRelativoH1MinValue">0</span></label>
+                                    <input type="range" id="volumeRelativoH1Min" min="0" max="10000" value="0" step="10" class="slider">
+                                </div>
+                                <div class="slider-wrapper">
+                                    <label>H1 Max: <span id="volumeRelativoH1MaxValue">10000</span></label>
+                                    <input type="range" id="volumeRelativoH1Max" min="0" max="10000" value="10000" step="10" class="slider">
+                                </div>
+                            </div>
+                            <div class="slider-container">
+                                <div class="slider-wrapper">
+                                    <label>H6 Min: <span id="volumeRelativoH6MinValue">0</span></label>
+                                    <input type="range" id="volumeRelativoH6Min" min="0" max="10000" value="0" step="10" class="slider">
+                                </div>
+                                <div class="slider-wrapper">
+                                    <label>H6 Max: <span id="volumeRelativoH6MaxValue">10000</span></label>
+                                    <input type="range" id="volumeRelativoH6Max" min="0" max="10000" value="10000" step="10" class="slider">
+                                </div>
+                            </div>
+                            <div class="slider-container">
+                                <div class="slider-wrapper">
+                                    <label>H24 Min: <span id="volumeRelativoH24MinValue">0</span></label>
+                                    <input type="range" id="volumeRelativoH24Min" min="0" max="10000" value="0" step="10" class="slider">
+                                </div>
+                                <div class="slider-wrapper">
+                                    <label>H24 Max: <span id="volumeRelativoH24MaxValue">10000</span></label>
+                                    <input type="range" id="volumeRelativoH24Max" min="0" max="10000" value="10000" step="10" class="slider">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ratio Compras/Ventas -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h3>Ratio Compras/Ventas</h3>
+                            <span class="section-subtitle">Ratio entre número de compras y ventas</span>
+                        </div>
+                        <div class="slider-group">
+                            <div class="slider-container">
+                                <div class="slider-wrapper">
+                                    <label>M5 Min: <span id="ratioComprasVentasM5MinValue">0</span></label>
+                                    <input type="range" id="ratioComprasVentasM5Min" min="0" max="10" value="0" step="0.1" class="slider">
+                                </div>
+                                <div class="slider-wrapper">
+                                    <label>M5 Max: <span id="ratioComprasVentasM5MaxValue">10</span></label>
+                                    <input type="range" id="ratioComprasVentasM5Max" min="0" max="10" value="10" step="0.1" class="slider">
+                                </div>
+                            </div>
+                            <div class="slider-container">
+                                <div class="slider-wrapper">
+                                    <label>H1 Min: <span id="ratioComprasVentasH1MinValue">0</span></label>
+                                    <input type="range" id="ratioComprasVentasH1Min" min="0" max="10" value="0" step="0.1" class="slider">
+                                </div>
+                                <div class="slider-wrapper">
+                                    <label>H1 Max: <span id="ratioComprasVentasH1MaxValue">10</span></label>
+                                    <input type="range" id="ratioComprasVentasH1Max" min="0" max="10" value="10" step="0.1" class="slider">
+                                </div>
+                            </div>
+                            <div class="slider-container">
+                                <div class="slider-wrapper">
+                                    <label>H6 Min: <span id="ratioComprasVentasH6MinValue">0</span></label>
+                                    <input type="range" id="ratioComprasVentasH6Min" min="0" max="10" value="0" step="0.1" class="slider">
+                                </div>
+                                <div class="slider-wrapper">
+                                    <label>H6 Max: <span id="ratioComprasVentasH6MaxValue">10</span></label>
+                                    <input type="range" id="ratioComprasVentasH6Max" min="0" max="10" value="10" step="0.1" class="slider">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hold Time -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h3>Tiempo de Hold</h3>
+                            <span class="section-subtitle">Consultas/minutos a mantener la posición</span>
+                        </div>
+                        <div class="slider-container">
+                            <div class="slider-wrapper full-width">
+                                <label>Consultas: <span id="holdTimeValue">60</span></label>
+                                <input type="range" id="holdTime" min="1" max="300" value="60" step="1" class="slider">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Take Profit / Stop Loss -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h3>Take Profit / Stop Loss</h3>
+                            <span class="section-subtitle">Cierre automático en porcentaje (%)</span>
+                        </div>
+                        <div class="slider-container">
+                            <div class="slider-wrapper">
+                                <label>Take Profit (%): <span id="takeProfitValue">0</span>%</label>
+                                <input type="range" id="takeProfit" min="0" max="1000" value="0" step="0.1" class="slider">
+                            </div>
+                            <div class="slider-wrapper">
+                                <label>Stop Loss (%): <span id="stopLossValue">0</span>%</label>
+                                <input type="range" id="stopLoss" min="0" max="100" value="0" step="0.1" class="slider">
+                            </div>
+                            <div class="slider-wrapper">
+                                <label>Max Profit % por Trade: <span id="maxProfitPerTradeValue">0</span>%</label>
+                                <input type="range" id="maxProfitPerTrade" min="0" max="10000" value="0" step="1" class="slider">
+                                <small style="color: var(--text-secondary); font-size: 0.85em; margin-top: 5px; display: block;">Ignorar trades que excedan este valor (0 = sin límite)</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <span>Ejecutar Backtest</span>
+                        <span class="btn-subtitle">Analizar estrategia con datos históricos</span>
+                    </button>
+                </form>
+            </aside>
+
+            <main class="results-area">
+                <div class="correlations-panel" id="correlationsPanel">
+                    <h2>Correlaciones con Profit (60 consultas)</h2>
+                    <div id="correlationsContent" class="loading">Cargando correlaciones...</div>
+                </div>
+
+                <div class="results-panel" id="resultsPanel" style="display: none;">
+                    <div class="panel-header">
+                        <h2>Resultados del Backtest</h2>
+                    </div>
+                    <div id="resultsContent"></div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+

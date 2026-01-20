@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Einstein The Trenchor</title>
+  <link rel="stylesheet" href="einstein.css">
+</head>
+<body>
+  <div class="page">
+    <nav class="top-nav">
+      <div class="brand">
+        <span class="brand-mark">E</span>
+        <span>Einstein The Trenchor</span>
+      </div>
+      <div class="nav-links">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#principles">Principles</a>
+        <a href="#loop">Decision Loop</a>
+        <a href="einstein-pnl.html" class="nav-cta">PnL Lab</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Einstein The Trenchor</p>
+        <h1>Relativity-powered memecoin intelligence for Solana portfolios</h1>
+        <p class="subhead">
+          I am Einstein in algorithmic form—scanning a vast universe of tokens, measuring their forces,
+          and deciding precisely when to enter or exit the field.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#portfolio">View Portfolio</a>
+          <a class="btn ghost" href="einstein-pnl.html">Enter the PnL Lab</a>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <div class="glass-card">
+          <p class="card-label">Einstein's Pulse</p>
+          <div class="pulse">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <p class="card-note">Real-time decisions, tuned for chaos.</p>
+        </div>
+        <div class="glass-card">
+          <p class="card-label">Public Signal</p>
+          <p class="card-big">X Broadcasts</p>
+          <p class="card-note">
+            Einstein posts every trade thesis on X as it happens: entry, exit, and the reasoning in plain English.
+          </p>
+        </div>
+        <div class="glass-card signal-orb">
+          <p class="card-label">Quantum Drift</p>
+          <div class="orb"></div>
+          <p class="card-note">Probability waves guide every entry.</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="status-strip">
+      <div class="status-content">
+        <span class="status-pill">Live research is running</span>
+        <div class="status-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="status-copy">Einstein recalibrates the field every 90 seconds.</span>
+      </div>
+      <div class="status-scroll">
+        <span>Gravity check · Momentum check · Volatility scan · Jupiter execution · Bloom confirmation</span>
+        <span>Gravity check · Momentum check · Volatility scan · Jupiter execution · Bloom confirmation</span>
+      </div>
+    </section>
+
+    <section class="section" id="portfolio">
+      <div class="section-header">
+        <h2>Portfolio Observatory</h2>
+        <p>Live Profit & Loss for Einstein’s active portfolio.</p>
+      </div>
+
+      <div class="wallet-bar">
+        <div>
+          <span class="wallet-label">Bot Wallet</span>
+          <span class="wallet-value" id="walletDisplay">Loading...</span>
+        </div>
+        <button class="btn ghost" id="syncWallet">Sync PnL</button>
+        <span class="wallet-status" id="walletStatus">Awaiting data...</span>
+      </div>
+
+      <div class="metrics-grid" id="summaryGrid">
+        <div class="metric-card">
+          <span class="metric-label">Total PnL</span>
+          <span class="metric-value" data-key="total">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Win / Loss</span>
+          <span class="metric-value" data-key="winsLosses">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Realized</span>
+          <span class="metric-value" data-key="realized">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Unrealized</span>
+          <span class="metric-value" data-key="unrealized">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Total Invested</span>
+          <span class="metric-value" data-key="totalInvested">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Neutral %</span>
+          <span class="metric-value" data-key="neutralPercentage">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Win %</span>
+          <span class="metric-value" data-key="winPercentage">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Avg Buy</span>
+          <span class="metric-value" data-key="averageBuyAmount">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Loss %</span>
+          <span class="metric-value" data-key="lossPercentage">--</span>
+        </div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card">
+          <h3>Einstein PnL Wave</h3>
+          <canvas id="summaryChart" width="600" height="220"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Historic Field Strength</h3>
+          <canvas id="historicChart" width="600" height="220"></canvas>
+        </div>
+      </div>
+
+      <div class="historic-grid" id="historicGrid">
+        <div class="historic-card pie-card" data-period="30d">
+          <h3>Einstein 30D Field</h3>
+          <div class="pie-chart-container">
+            <canvas id="winLossPieChart" width="200" height="200"></canvas>
+            <div class="pie-legend">
+              <div class="legend-item">
+                <span class="legend-color" style="background: #4ade80;"></span>
+                <span class="legend-label">Wins</span>
+                <span class="legend-value" id="winsCount">0</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-color" style="background: #f87171;"></span>
+                <span class="legend-label">Losses</span>
+                <span class="legend-value" id="lossesCount">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section signal-grid">
+      <div class="section-header">
+        <h2>Einstein’s Live Intelligence</h2>
+        <p>Hover each capsule to feel the algorithm shift.</p>
+      </div>
+      <div class="insight-grid">
+        <div class="insight-card">
+          <h3>Token Observatory</h3>
+          <p>Einstein scans thousands of tokens, sampling price, volume, and volatility waves.</p>
+          <div class="signal-bar"></div>
+        </div>
+        <div class="insight-card">
+          <h3>Momentum Signature</h3>
+          <p>Multi-frame momentum checks to avoid chaotic pumps.</p>
+          <div class="signal-bar"></div>
+        </div>
+        <div class="insight-card">
+          <h3>Exit Protocol</h3>
+          <p>Einstein exits on signal decay, force threshold, or time expiration.</p>
+          <div class="signal-bar"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="principles">
+      <div class="section-header">
+        <h2>Einstein’s Trading Principles</h2>
+        <p>Every trade is treated like a physics experiment.</p>
+      </div>
+
+      <div class="principles-grid">
+        <div class="principle-card">
+          <h3>Relativity of Momentum</h3>
+          <p>
+            A token’s velocity is measured across multiple frames. If the relative momentum is unstable,
+            Einstein refuses to enter.
+          </p>
+        </div>
+        <div class="principle-card">
+          <h3>Mass & Gravity</h3>
+          <p>
+            Market cap is the mass. If the mass is too light, the system is too chaotic and the trade is ignored.
+          </p>
+        </div>
+        <div class="principle-card">
+          <h3>Temporal Discipline</h3>
+          <p>
+            Positions live only within a strict time window. Every experiment must conclude before the field decays.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="loop">
+      <div class="section-header">
+        <h2>Einstein’s Decision Loop</h2>
+        <p>How the bot behaves in real time.</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-step">
+          <span class="step-index">01</span>
+          <div>
+            <h4>Scan the token universe</h4>
+            <p>Einstein evaluates a large field of tokens and collects multi-variable signals in real time.</p>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <span class="step-index">02</span>
+          <div>
+            <h4>Score the physics</h4>
+            <p>Market cap, momentum, volume, and volatility are scored before any entry is allowed.</p>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <span class="step-index">03</span>
+          <div>
+            <h4>Enter & monitor</h4>
+            <p>Jupiter executes the trade, Bloom confirms it, and Einstein tracks the evolving forces.</p>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <span class="step-index">04</span>
+          <div>
+            <h4>Exit by signal collapse</h4>
+            <p>Einstein exits when momentum decays, thresholds trigger, or the experiment times out.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section einstein-bio">
+      <div class="einstein-bio-content">
+        <div class="einstein-portrait">
+          <img src="Fotos/Einstein.png" alt="Albert Einstein" />
+        </div>
+        <div class="einstein-bio-text">
+          <h2>Albert Einstein</h2>
+          <p class="bio-subtitle">Theoretical Physicist & Thought Leader</p>
+          <div class="bio-content">
+            <p>
+              Albert Einstein (1879-1955) revolutionized our understanding of space, time, and energy. 
+              His theory of relativity showed that mass and energy are equivalent, and that gravity 
+              is a curvature of spacetime itself—not a force.
+            </p>
+            <p>
+              Einstein's work demonstrated that the universe operates on mathematical principles 
+              that can be observed, measured, and predicted. His approach to physics emphasized 
+              thought experiments, empirical validation, and the rejection of assumptions that 
+              cannot be proven.
+            </p>
+            <p>
+              This trading algorithm embodies Einstein's methodology: it observes market forces, 
+              calculates probabilities using multi-dimensional data, and makes decisions based on 
+              measurable patterns rather than emotion or speculation. Every trade is treated as a 
+              physics experiment—rigorous, repeatable, and subject to the laws of probability.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section closing">
+      <h2>Einstein The Trenchor</h2>
+      <p>
+        This is a living lab: an AI persona narrating why it enters or avoids memecoins.
+        Expect every trade to be explained, published, and archived with scientific discipline.
+      </p>
+    </section>
+  </div>
+
+  <script src="einstein.js"></script>
+</body>
+</html>
