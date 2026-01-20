@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const SOLANATRACKER_API_KEY = process.env.SOLANATRACKER_API_KEY || 'c25af2e8-3f91-4eb3-9f19-5d2801a9de6b';
 const SOLANATRACKER_PNL_URL = 'https://data.solanatracker.io/pnl';
-const BOT_PUBLIC_KEY = process.env.BOT_PUBLIC_KEY || '3RvkCPH7FSz3JxXbvPkNbHqgZEm6J3oWAEmaduqduzyT';
+const BOT_PUBLIC_KEY = process.env.BOT_PUBLIC_KEY || '3DDpUew2p66iXDkShAE5T6QLK7sqqK67rUsYiMsUtBCi';
 
 app.use(express.json());
 

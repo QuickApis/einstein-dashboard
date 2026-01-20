@@ -57,7 +57,7 @@ En Railway, ve a **Variables** y añade (opcionales, ya tienen valores por defec
 
 ```
 SOLANATRACKER_API_KEY=c25af2e8-3f91-4eb3-9f19-5d2801a9de6b
-BOT_PUBLIC_KEY=3RvkCPH7FSz3JxXbvPkNbHqgZEm6J3oWAEmaduqduzyT
+BOT_PUBLIC_KEY=3DDpUew2p66iXDkShAE5T6QLK7sqqK67rUsYiMsUtBCi
 ```
 
 ## Paso 7: Obtener tu URL

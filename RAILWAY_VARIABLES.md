@@ -12,7 +12,7 @@ En Railway, ve a **"Variables"** en tu proyecto y añade estas variables si quie
 
 ### 2. BOT_PUBLIC_KEY
 - **Nombre**: `BOT_PUBLIC_KEY`
-- **Valor**: `3RvkCPH7FSz3JxXbvPkNbHqgZEm6J3oWAEmaduqduzyT`
+- **Valor**: `3DDpUew2p66iXDkShAE5T6QLK7sqqK67rUsYiMsUtBCi`
 - **Descripción**: Dirección pública de la wallet del bot (ya tiene valor por defecto)
 - **Opcional**: ✅ Sí (si no la pones, usa el valor por defecto)
 
@@ -35,7 +35,7 @@ En Railway, ve a **"Variables"** en tu proyecto y añade estas variables si quie
 
 ```
 SOLANATRACKER_API_KEY = c25af2e8-3f91-4eb3-9f19-5d2801a9de6b
-BOT_PUBLIC_KEY = 3RvkCPH7FSz3JxXbvPkNbHqgZEm6J3oWAEmaduqduzyT
+BOT_PUBLIC_KEY = 3DDpUew2p66iXDkShAE5T6QLK7sqqK67rUsYiMsUtBCi
 ```
 
 **NO añadas `PORT`** - Railway lo maneja automáticamente.

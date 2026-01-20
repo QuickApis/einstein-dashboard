@@ -27,7 +27,7 @@
 1. En tu proyecto de Railway, ve a **"Variables"**
 2. Añade estas variables (opcionales, ya tienen valores por defecto en el código):
    - `SOLANATRACKER_API_KEY` = `c25af2e8-3f91-4eb3-9f19-5d2801a9de6b`
-   - `BOT_PUBLIC_KEY` = `3RvkCPH7FSz3JxXbvPkNbHqgZEm6J3oWAEmaduqduzyT`
+   - `BOT_PUBLIC_KEY` = `3DDpUew2p66iXDkShAE5T6QLK7sqqK67rUsYiMsUtBCi`
    - `PORT` = `3000` (opcional, Railway lo asigna automáticamente)
 
 ### Paso 4: Desplegar
@@ -66,7 +66,7 @@ railway init
 ### Paso 4: Añadir variables de entorno (opcional)
 ```bash
 railway variables set SOLANATRACKER_API_KEY=c25af2e8-3f91-4eb3-9f19-5d2801a9de6b
-railway variables set BOT_PUBLIC_KEY=3RvkCPH7FSz3JxXbvPkNbHqgZEm6J3oWAEmaduqduzyT
+railway variables set BOT_PUBLIC_KEY=3DDpUew2p66iXDkShAE5T6QLK7sqqK67rUsYiMsUtBCi
 ```
 
 ### Paso 5: Desplegar
